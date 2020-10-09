@@ -1,0 +1,94 @@
+:root {
+  /* font-size: 12.5px; */
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #fff;
+  --bg-header: rgb(0,196,139);
+  --bg-boxes: rgb(147,228,186);
+  --bg-buttons: rgb(90,170,255);
+  --bg-record: rgb(254, 112, 112);
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: var(--bg-header);
+}
+
+p {
+  margin-top: 0.6rem;
+}
+
+#alert-div {
+  min-height: 2rem;
+  color: #000;
+}
+
+#recorder,
+#player {
+  width: 88%;
+  max-width: 800px;
+  margin: auto;
+  border-radius: 0.5rem;
+  background: var(--bg-boxes);
+  color: #000;
+  /* margin-top: 2rem; */
+  padding: 1.2rem 0;
+}
+#recorder {
+  height: 10rem;
+}
+#player {
+  margin-top: 2rem;
+}
+
+/* Button styles */
+button {
+  background: var(--bg-buttons);
+  color: #fff;
+  border: #fff solid 0.2rem;
+  font-size: 1.2rem;
+}
+
+#toggle-record-button {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+}
+.not-recording {
+  background: var(--bg-record);
+}
+.is-recording {
+  background: rgb(214, 72, 72);
+}
+
+/* 
+#player-buttons {
+  display: flex;
+  justify-content: space-between;
+} */
+#play-button,
+#pause-button {
+  width: 6rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#play-button {
+  margin-right: 2rem;
+}
+#record-button {
+  margin-left: 2rem;
+}
+.btn-active {
+  background: var(--bg-buttons);
+}
+.btn-inactive {
+  background: #99b;
+}
+
+
