@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import Counter from './Counter';
+import Recorder from './Recorder';
 import Player from './Player';
+import '../../static/css/main.css' // $ npm i -D style-loader css-loader   <- also, add under module rules in webpack.config.js, see https://webpack.js.org/loaders/style-loader/
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       hasMedia: false,
-      isRecording: false,
       audioURL: null
     }
     // console.log(navigator);
@@ -16,51 +16,9 @@ class App extends Component {
     } 
   }
 
-  startRecording = () => {
-    this.setState({isRecording: true});
-    this.mediaRecorder.start()
-
-    this.timer = setTimeout(() => {
-      // console.log("timer expired (5 seconds passed)")
-      this.stopRecording();  
-    },
-    5000
-    );
-  }
-
-  stopRecording = () => {
-    this.mediaRecorder.stop();
-    this.setState({isRecording: false});
-    this.setState({count: 5});
-    clearTimeout(this.timer);
-  }
-
-  // arrow functions and binding this-context - https://stackoverflow.com/questions/50375440/binding-vs-arrow-function-for-react-onclick-event
-  toggleRecording = () => {
-    if (this.state.isRecording) {
-      this.stopRecording();
-    } else {
-      if (this.state.hasMedia) {
-       this.startRecording();
-      }
-    }
-  }
-  
-  async componentDidMount() {
-    const stream = await navigator.mediaDevices.getUserMedia({audio: true});
-    this.mediaRecorder = new MediaRecorder(stream);
-    let chunks = []; // init data storage for audio chunks
-    
-    this.mediaRecorder.ondataavailable = e => {
-      chunks.push(e.data);
-    };
-
-    this.mediaRecorder.onstop = e => {
-      const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
-      // console.log(blob);
-      chunks = [];
-      this.setState({audioURL: URL.createObjectURL(blob)});
-    }
+  // https://reactjs.org/docs/lifting-state-up.html
+  handleNewAudioURL = (recorderAudioURL) => { // this function is passed in as props to the Recorder component and called from within it
+    this.setState({audioURL: recorderAudioURL});
   }
 
   render() {
@@ -72,18 +30,8 @@ class App extends Component {
           {this.state.hasMedia ? "" : "Warning! navigator.mediaDevices only accessible on localhost and on secure connection (https)"}
         </div>
 
-        <div id="recorder">
-          <button id="toggle-record-button" className={this.state.isRecording ? "is-recording" : "not-recording"} onClick={this.toggleRecording}>
-            {this.state.isRecording ? 'Stop' : 'Record'}
-          </button>
-
-          <p>
-            {this.state.isRecording ? <Counter /> : ""}
-          </p>
-        </div>   
-
+        <Recorder handleNewAudioURL={this.handleNewAudioURL} hasMedia={this.state.hasMedia} />
         <Player audioURL={this.state.audioURL} />
-        
       </div>
     );
   }

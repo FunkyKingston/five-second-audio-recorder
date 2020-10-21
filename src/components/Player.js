@@ -1,13 +1,10 @@
 import React, { Component, Fragment } from 'react';
 
 class Player extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isPlaying: false,
-    };
+  state = {
+    isPlaying: false,
   }
-
+  
   startPlaying = () => {
     this.setState({isPlaying: true});
 

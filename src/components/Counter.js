@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
-
 function Counter (props) {
   const [count, setCount] = useState(5);
 
@@ -18,11 +17,10 @@ function Counter (props) {
   }, [count]);
 
   return (
-    <React.Fragment>
+    <Fragment>
       Recording: {count}...
-    </React.Fragment>
+    </Fragment>
   )
-
 };
 
 export default Counter;
